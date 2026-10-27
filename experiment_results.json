@@ -1,0 +1,88 @@
+{
+  "dataset": "german.csv",
+  "random_state": 42,
+  "test_size": 0.2,
+  "selected_model": {
+    "model_name": "SoftVotingEnsemble (RF+ET+GB+MLP)",
+    "train_roc_auc": 0.9673,
+    "roc_auc": 0.8364,
+    "accuracy": 0.78,
+    "precision": 0.82,
+    "recall": 0.8786,
+    "f1": 0.8483
+  },
+  "experiments": [
+    {
+      "model_name": "SoftVotingEnsemble (RF+ET+GB+MLP)",
+      "train_roc_auc": 0.9673,
+      "roc_auc": 0.8364,
+      "accuracy": 0.78,
+      "precision": 0.82,
+      "recall": 0.8786,
+      "f1": 0.8483
+    },
+    {
+      "model_name": "StackingClassifier (RF+ET+GB+MLP)",
+      "train_roc_auc": 0.9645,
+      "roc_auc": 0.8343,
+      "accuracy": 0.8,
+      "precision": 0.8247,
+      "recall": 0.9071,
+      "f1": 0.8639
+    },
+    {
+      "model_name": "RandomForest (Tuned)",
+      "train_roc_auc": 0.9828,
+      "roc_auc": 0.8329,
+      "accuracy": 0.78,
+      "precision": 0.881,
+      "recall": 0.7929,
+      "f1": 0.8346
+    },
+    {
+      "model_name": "HistGradientBoosting (Tuned)",
+      "train_roc_auc": 0.9285,
+      "roc_auc": 0.8298,
+      "accuracy": 0.8,
+      "precision": 0.8289,
+      "recall": 0.9,
+      "f1": 0.863
+    },
+    {
+      "model_name": "ExtraTrees (Tuned)",
+      "train_roc_auc": 0.955,
+      "roc_auc": 0.8236,
+      "accuracy": 0.775,
+      "precision": 0.7746,
+      "recall": 0.9571,
+      "f1": 0.8562
+    },
+    {
+      "model_name": "AdaBoost (Tuned)",
+      "train_roc_auc": 0.821,
+      "roc_auc": 0.8214,
+      "accuracy": 0.775,
+      "precision": 0.795,
+      "recall": 0.9143,
+      "f1": 0.8505
+    },
+    {
+      "model_name": "MLPClassifier (Tuned)",
+      "train_roc_auc": 0.7915,
+      "roc_auc": 0.8146,
+      "accuracy": 0.775,
+      "precision": 0.8231,
+      "recall": 0.8643,
+      "f1": 0.8432
+    },
+    {
+      "model_name": "GradientBoosting (Tuned)",
+      "train_roc_auc": 0.9687,
+      "roc_auc": 0.8143,
+      "accuracy": 0.805,
+      "precision": 0.8258,
+      "recall": 0.9143,
+      "f1": 0.8678
+    }
+  ]
+}
