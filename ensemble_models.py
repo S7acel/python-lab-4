@@ -74,16 +74,17 @@ RANDOM_STATE = 42
 
 def _extract_split(data: EnsembleInput):
     """Безопасное извлечение train/test выборок из входного контракта EnsembleInput."""
+    # извлекаем данные
     X_train = getattr(data, "train_features", getattr(data, "X_train", None))
     y_train = getattr(data, "train_target", getattr(data, "y_train", None))
     X_test = getattr(data, "test_features", getattr(data, "X_test", None))
-    y_test = getattr(data, "test_target", getattr(data, "y_test", None))
-
+    y_test = getattr(data, "test_target", getattr(data, "y_test", None))  # используется только в самом конце для расчёта итоговых метрик
+    # чтобы не испортить данные
     X_train_df = pd.DataFrame(X_train).copy()
     X_test_df = pd.DataFrame(X_test).copy()
 
     # Выравнивание категориальных признаков (если есть строковые столбцы) только по train
-    X_train_enc = pd.get_dummies(X_train_df, drop_first=True)
+    X_train_enc = pd.get_dummies(X_train_df, drop_first=True)  # превращает строковые признаки (если они есть) в столбцы из 0 и 1. А строчка
     X_test_enc = pd.get_dummies(X_test_df, drop_first=True)
     X_train_enc, X_test_enc = X_train_enc.align(X_test_enc, join="left", axis=1, fill_value=0)
 
@@ -91,6 +92,7 @@ def _extract_split(data: EnsembleInput):
     medians = X_train_enc.median(numeric_only=True)
     X_train_enc = X_train_enc.fillna(medians).fillna(0.0)
     X_test_enc = X_test_enc.fillna(medians).fillna(0.0)
+    # защита от утечек данных
 
     y_tr = np.asarray(y_train).ravel()
     y_te = np.asarray(y_test).ravel()
@@ -104,6 +106,7 @@ def _extract_split(data: EnsembleInput):
 
 
 def _build_return_object(
+    # техническая обёртка, чтобы аккуратно передать результаты в проверяющую систему и не ошибиться в названиях полей.
     model_name: str,
     y_prob: np.ndarray,
     y_pred: np.ndarray,
@@ -199,7 +202,7 @@ def build_candidate_models(random_state: int = RANDOM_STATE) -> dict[str, Any]:
 
     mlp = Pipeline(
         [
-            ("scaler", StandardScaler()),
+            ("scaler", StandardScaler()),  # защита от утечки
             (
                 "mlp",
                 MLPClassifier(
